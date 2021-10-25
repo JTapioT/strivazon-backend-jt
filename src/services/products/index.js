@@ -6,9 +6,9 @@ import {
   getReviewsJSON,
   getProductsJSON,
   writeProductsJSON,
-} from "../lib/fs-tools.js";
+} from "../../lib/fs-tools.js";
 import { productValidationMiddlewares } from "./validation.js";
-import { parseFile, uploadFile } from "../upload/index.js";
+import { parseFile, uploadFile } from "../../upload/index.js";
 
 const productsRouter = express.Router();
 
@@ -27,11 +27,14 @@ productsRouter.get("/", async (req, res, next) => {
         const whiteList = ["category", "name", "price", "brand", "description"];
         // With some() method, check if at least one returns -1 (No match within whitelist when using indexOf)
         let isQueryNonValid = queryKeysArr.some((queryValue) => {
+        // Why the opposite !== -1 don't work? To my understanding, then it would return false if one queryValue does not match any of the whitelist values??
         return whiteList.indexOf(queryValue) === -1
         });
 
 
         let filteredProducts;
+        // Eyes bleed from reading this but well, worth a try:
+        // At least some filtering happens when more than one query parameter provided
         if(!isQueryNonValid) {
           console.log("here");
           // For checking against the values within product details:
@@ -61,13 +64,6 @@ productsRouter.get("/", async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  /* try {
-    const products = await getProductsJSON();
-    console.log(products);
-    res.send(products);
-  } catch (error) {
-    next(error);
-  } */
 });
 
 productsRouter.get("/:productId", async (req, res, next) => {
@@ -172,6 +168,7 @@ productsRouter.delete("/:productId", async (req, res, next) => {
   }
 });
 
+// Put or Post? Post makes sense as it is file upload to server, hence client posts a resource which causes though an update within resource property (product's imageUrl). Hence, Put is better than Post?
 productsRouter.put(
   "/:productId/upload",
   parseFile.single("upload"),
@@ -183,7 +180,10 @@ productsRouter.put(
         (product) => product._id === req.params.productId
       );
 
-      const productToModify = products[index];
+      products[index] = {...products[index], imageUrl: req.file, updatedAt: new Date()}
+
+    // Commented out earlier code from team-mate
+    /*   const productToModify = products[index];
       const updatedFields = {
         imageUrl: req.file,
         updatedAt: new Date(),
@@ -192,7 +192,8 @@ productsRouter.put(
       const updatedProduct = { ...productToModify, ...updatedFields };
       products[index] = updatedProduct;
 
-      products.push(updatedProduct);
+      products.push(updatedProduct); */
+
       await writeProductsJSON(products);
       res.status(201).send({ _id: products[index]._id });
     } catch (error) {

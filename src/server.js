@@ -3,6 +3,7 @@ import listEndpoints from "express-list-endpoints";
 import cors from "cors";
 import { join } from "path";
 import reviewsRouter from "../src/services/reviews/index.js";
+import productsRouter from "./services/products/index.js";
 
 import {
   badRequestHandler,
@@ -10,13 +11,14 @@ import {
   genericErrorHandler,
 } from "./errorHandlers.js";
 
-import productsRouter from "./products/index.js";
 
 const server = express();
+
 
 //Middleware
 server.use(cors());
 server.use(express.json());
+server.use(express.static(join(process.cwd(), "/public")));
 
 // Endpoints
 server.use("/products", productsRouter);

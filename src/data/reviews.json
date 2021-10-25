@@ -1,1 +1,18 @@
-[{"_id":"1l2exi8vskv6kxbvg","comment":"A book but definitely I don't like many parts of the plot","rate":3,"productId":"1234","createdAt":"2021-10-25T11:31:18.748Z"},{"_id":"1l2exif1gkv6lvmps","comment":"Just a comment","rate":3,"productId":"1234","createdAt":"2021-10-25T11:57:59.103Z"},{"_id":"2kil1g2lw8kv6t1nnj","comment":"Great phone!","rate":5,"productId":"2paysc3gkv6kszs1","createdAt":"2021-10-25T15:18:37.566Z","updatedAt":"2021-10-25T15:18:37.566Z"},{"_id":"2kil1g2lw8kv6t342d","comment":"Not just great phone, the greatest!","rate":5,"productId":"2paysc3gkv6kszs1","createdAt":"2021-10-25T15:19:45.493Z","updatedAt":"2021-10-25T15:19:45.493Z"}]
+[
+  {
+    "_id": "2kil1g2lw8kv6t1nnj",
+    "comment": "Great phone!",
+    "rate": 5,
+    "productId": "2paysc3gkv6kszs1",
+    "createdAt": "2021-10-25T15:18:37.566Z",
+    "updatedAt": "2021-10-25T15:18:37.566Z"
+  },
+  {
+    "_id": "2kil1g2lw8kv6t342d",
+    "comment": "Not just great phone, the greatest!",
+    "rate": 5,
+    "productId": "2paysc3gkv6kszs1",
+    "createdAt": "2021-10-25T15:19:45.493Z",
+    "updatedAt": "2021-10-25T15:19:45.493Z"
+  }
+]
